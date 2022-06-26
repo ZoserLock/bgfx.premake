@@ -1,39 +1,36 @@
-project("etc2");
-    kind("StaticLib");
+project("geometryc");
+    kind("ConsoleApp");
     language("C++");
     cppdialect("c++17");
     staticruntime("On");
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
+    targetdir(BGFX_BIN_DIR .. "tools/");
+    objdir(BGFX_OBJ_DIR    .. "tools/");
 
     files(
     {
-        BIMG_DIR .. "3rdparty/etc2/*.cpp",
-        BIMG_DIR .. "3rdparty/etc2/*.h"
-    });
-
-    ETC2_INCLUDE_DIRS = 
-    {
-        BIMG_DIR.."3rdparty",
-    }
-
-    includedirs(
-    {
-        ETC2_INCLUDE_DIRS,
-        BX_INCLUDE_DIRS
-    });
-
-    links(
-    { 
-        "bx",
+        BGFX_DIR .."tools/geometryc/geometryc.cpp",
     });
 
     defines(
     {
-        BX_DEFINE_LIST
-    })
+        BX_DEFINE_LIST,
+        "_CRT_SECURE_NO_WARNINGS"
+    });
 
+    includedirs(
+    {
+        BX_INCLUDE_DIRS,
+        BGFX_INCLUDE_DIRS
+    });
+
+    links(
+    {
+        "bx",
+        "bgfx-vertexlayout",
+        "meshoptimizer",
+    });
+    
     -- BUILD CONFIGURATIONS
     filter("configurations:Debug");
         runtime("Debug");
@@ -43,7 +40,6 @@ project("etc2");
         runtime("Release");
         optimize("On");
 
-    -- WINDOWS ONLY CONFIGURATION
     filter("system:Windows");
         buildoptions(
         {

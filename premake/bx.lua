@@ -5,8 +5,8 @@ project("bx");
     cppdialect("c++17");
     staticruntime("On");
 
-    targetdir(BX_DIR .. "lib/");
-    objdir(BX_DIR .. "obj/");
+    targetdir(BGFX_BIN_DIR);
+    objdir(BGFX_OBJ_DIR);
 
     -- If Amalgated is used just include the amalgamated file. Remove the amalgamated file otherwise.
     if OPTION_BX_AMALGAMATED == 0 then
@@ -54,6 +54,15 @@ project("bx");
         "__STDC_FORMAT_MACROS",
         "__STDC_CONSTANT_MACROS",
     });
+    
+    -- BUILD CONFIGURATIONS
+    filter("configurations:Debug");
+        runtime("Debug");
+        symbols("On");
+
+    filter("configurations:Release");
+        runtime("Release");
+        optimize("On");
 
     -- ONLY WINDOWS CONFIGURATION
     filter("system:Windows");

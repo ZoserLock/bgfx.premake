@@ -4,8 +4,8 @@ project("nvtt");
     cppdialect("c++17");
     staticruntime("On");
 
-    targetdir(BIMG_DIR .. "lib/");
-    objdir(BIMG_DIR .. "obj/");
+    targetdir(BGFX_BIN_DIR .. "3rdparty/");
+    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
 
     files(
     {
@@ -41,9 +41,20 @@ project("nvtt");
     {
         BX_DEFINE_LIST
     })
+    
+    -- BUILD CONFIGURATIONS
+    filter("configurations:Debug");
+        runtime("Debug");
+        symbols("On");
 
+    filter("configurations:Release");
+        runtime("Release");
+        optimize("On");
+
+    -- WINDOWS ONLY CONFIGURATION
     filter("system:Windows");
         buildoptions(
         {
             "/Zc:__cplusplus" -- makes __cplusplus report the correct value
         });
+    

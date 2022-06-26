@@ -2,8 +2,10 @@ project("bgfx");
     kind("StaticLib");
     language("C++");
 
-    -- BGFX_LIBRARY_TYPE
+    targetdir(BGFX_BIN_DIR);
+    objdir(BGFX_OBJ_DIR);
 
+    -- TODO: BGFX_LIBRARY_TYPE
     staticruntime("On");
 
     if SYSTEM == "osx" then
@@ -11,7 +13,6 @@ project("bgfx");
     else
         BGFX_AMALGAMATED_SOURCE = "src/amalgamated.cpp";
     end
-
 
     if OPTION_BGFX_AMALGAMATED == 0 then
         files( 
@@ -32,9 +33,10 @@ project("bgfx");
         });
     end
 
+    -- TODO
+    -- if BGFX_CONFIG_RENDERER_WEBGPU == 1 then
+    -- end
 
-    --if BGFX_CONFIG_RENDERER_WEBGPU == 1 then
-    --end
     BGFX_INCLUDE_DIRS = 
     {
         BGFX_DIR .. "3rdparty",
@@ -67,6 +69,15 @@ project("bgfx");
         "bimg"
     });
 
+    -- BUILD CONFIGURATIONS
+    filter("configurations:Debug");
+        runtime("Debug");
+        symbols("On");
+
+    filter("configurations:Release");
+        runtime("Release");
+        optimize("On");
+
     -- WINDOWS ONLY CONFIGURATION
     filter("system:Windows");
         defines(
@@ -80,5 +91,7 @@ project("bgfx");
 
     -- OSX ONLY CONFIGURATION
     filter("system:osx");
+    filter();
+
 
 

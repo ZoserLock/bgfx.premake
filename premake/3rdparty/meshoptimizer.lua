@@ -1,4 +1,4 @@
-project("iqa");
+project("meshoptimizer");
     kind("StaticLib");
     language("C++");
     cppdialect("c++17");
@@ -9,18 +9,8 @@ project("iqa");
 
     files(
     {
-        BIMG_DIR .. "3rdparty/iqa/source/*.c",
-        BIMG_DIR .. "3rdparty/iqa/include/*.h"
-    });
-
-    IQA_INCLUDE_DIRS = 
-    {
-        BIMG_DIR.."3rdparty/iqa/include",
-    }
-
-    includedirs(
-    {
-        IQA_INCLUDE_DIRS
+        BGFX_DIR .."3rdparty/meshoptimizer/src/*.cpp",
+        BGFX_DIR .."3rdparty/meshoptimizer/src/*.h",
     });
 
     -- BUILD CONFIGURATIONS

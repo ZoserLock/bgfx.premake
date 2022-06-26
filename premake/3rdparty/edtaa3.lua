@@ -4,8 +4,8 @@ project("edtaa3");
     cppdialect("c++17");
     staticruntime("On");
 
-    targetdir(BIMG_DIR .. "lib/");
-    objdir(BIMG_DIR .. "obj/");
+    targetdir(BGFX_BIN_DIR .. "3rdparty/");
+    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
 
     files(
     {
@@ -22,3 +22,12 @@ project("edtaa3");
     {
         EDTAA3_INCLUDE_DIRS
     });
+    
+    -- BUILD CONFIGURATIONS
+    filter("configurations:Debug");
+        runtime("Debug");
+        symbols("On");
+
+    filter("configurations:Release");
+        runtime("Release");
+        optimize("On");

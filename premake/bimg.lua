@@ -20,8 +20,8 @@ project("bimg");
     cppdialect("c++17");
     staticruntime("On");
 
-    targetdir(BIMG_DIR .. "lib/");
-    objdir(BIMG_DIR .. "obj/");
+    targetdir(BGFX_BIN_DIR);
+    objdir(BGFX_OBJ_DIR);
 
     files(
     {
@@ -63,7 +63,16 @@ project("bimg");
         "tinyexr"
     });
 
-       -- ONLY WINDOWS CONFIGURATION
+    -- BUILD CONFIGURATIONS
+    filter("configurations:Debug");
+        runtime("Debug");
+        symbols("On");
+
+    filter("configurations:Release");
+        runtime("Release");
+        optimize("On");
+        
+    -- ONLY WINDOWS CONFIGURATION
     filter("system:Windows");
         buildoptions(
         {
