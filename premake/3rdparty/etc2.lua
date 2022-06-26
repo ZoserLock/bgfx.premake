@@ -9,8 +9,8 @@ project("etc2");
 
     files(
     {
-        BIMG_DIR .. "/3rdparty/etc2/*.cpp",
-        BIMG_DIR .. "/3rdparty/etc2/*.h"
+        BIMG_DIR .. "3rdparty/etc2/*.cpp",
+        BIMG_DIR .. "3rdparty/etc2/*.h"
     });
 
     ETC2_INCLUDE_DIRS = 

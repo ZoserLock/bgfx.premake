@@ -9,7 +9,7 @@ project("bx");
     objdir(BX_DIR .. "obj/");
 
     -- If Amalgated is used just include the amalgamated file. Remove the amalgamated file otherwise.
-    if BX_AMALGAMATED == 0 then
+    if OPTION_BX_AMALGAMATED == 0 then
         files( 
         {  
             BX_DIR .. "src/**.cpp", 
@@ -25,20 +25,21 @@ project("bx");
         });
     end
 
-    if system == windows then
-        printf("Works*************");
-    end
-
     BX_INCLUDE_DIRS = 
     {
-        BX_DIR.."include",
-        BX_DIR.."3rdparty",
-    }
+        BX_DIR .. "include",
+        BX_DIR .. "3rdparty",
+    };
 
-    BX_INCLUDE_DIRS_WIN32 =
-    {
-        BX_DIR.."include/compat/msvc", 
-    }
+    if SYSTEM == "windows" then
+
+        local win32Dirs = 
+        {
+            BX_DIR .. "include/compat/msvc", 
+        }
+
+        tableConcat(BX_INCLUDE_DIRS, win32Dirs);
+    end
 
     includedirs(
     {
@@ -52,14 +53,10 @@ project("bx");
         "__STDC_LIMIT_MACROS",
         "__STDC_FORMAT_MACROS",
         "__STDC_CONSTANT_MACROS",
-    })
+    });
 
     -- ONLY WINDOWS CONFIGURATION
     filter("system:Windows");
-        includedirs(
-        {
-            BX_INCLUDE_DIRS_WIN32
-        });
         buildoptions(
         {
             "/Zc:__cplusplus" -- makes __cplusplus report the correct value

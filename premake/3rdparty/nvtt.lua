@@ -43,10 +43,6 @@ project("nvtt");
     })
 
     filter("system:Windows");
-        includedirs(
-        {
-            BX_INCLUDE_DIRS_WIN32
-        });
         buildoptions(
         {
             "/Zc:__cplusplus" -- makes __cplusplus report the correct value

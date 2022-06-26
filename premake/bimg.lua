@@ -1,5 +1,4 @@
-
-group("3rdparty");
+group("bgfx/3rdparty");
     include("premake/3rdparty/astc-codec.lua");
     include("premake/3rdparty/astc.lua");
     include("premake/3rdparty/edtaa3.lua");
@@ -66,10 +65,6 @@ project("bimg");
 
        -- ONLY WINDOWS CONFIGURATION
     filter("system:Windows");
-        includedirs(
-        {
-            BX_INCLUDE_DIRS_WIN32
-        });
         buildoptions(
         {
             "/Zc:__cplusplus" -- makes __cplusplus report the correct value

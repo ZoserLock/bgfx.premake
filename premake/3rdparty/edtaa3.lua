@@ -9,8 +9,8 @@ project("edtaa3");
 
     files(
     {
-        BIMG_DIR .. "/3rdparty/edtaa3/*.cpp",
-        BIMG_DIR .. "/3rdparty/edtaa3/*.h"
+        BIMG_DIR .. "3rdparty/edtaa3/*.cpp",
+        BIMG_DIR .. "3rdparty/edtaa3/*.h"
     });
 
     EDTAA3_INCLUDE_DIRS = 
