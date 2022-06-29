@@ -1,35 +1,22 @@
-project("astc-codec");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+-- Create Module
+local Module = defineModule("astc-codec","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
-
-    files(
+Module.MainFunc = function(module)
+    module.files = 
     {
-        BIMG_DIR .. "3rdparty/astc-codec/src/decoder/*.cc",
-        BIMG_DIR .. "3rdparty/astc-codec/src/decoder/*.h"
-    });
+        module.dir .. "3rdparty/astc-codec/src/decoder/*.cc",
+        module.dir .. "3rdparty/astc-codec/src/decoder/*.h"
+    };
 
-    ASTC_CODEC_INCLUDE_DIRS = 
+    module.public.includeDirs =  
     {
-        BIMG_DIR.."3rdparty",
-        BIMG_DIR.."3rdparty/astc-codec",
-        BIMG_DIR.."3rdparty/astc-codec/include",
+        module.dir .. "3rdparty",
+        module.dir .. "3rdparty/astc-codec",
+        module.dir .. "3rdparty/astc-codec/include",
     }
+end
 
-    includedirs(
-    {
-        ASTC_CODEC_INCLUDE_DIRS
-    });
+-- Need to be called at last
+compileModule(Module);
 
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
-
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+return Module;

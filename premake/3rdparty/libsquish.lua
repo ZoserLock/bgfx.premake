@@ -1,34 +1,21 @@
-project("libsquish");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+local Module = defineModule("libsquish","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
-
-    files(
-    {
-        BIMG_DIR .. "3rdparty/libsquish/*.cpp",
-        BIMG_DIR .. "3rdparty/libsquish/*.h",
-        BIMG_DIR .. "3rdparty/libsquish/*.inl",
-    });
-
-    LIBSQUISH_INCLUDE_DIRS = 
-    {
-        BIMG_DIR.."3rdparty/libsquish",
-    }
-
-    includedirs(
-    {
-        LIBSQUISH_INCLUDE_DIRS
-    });
+Module.MainFunc = function(module)
     
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+    module.files = 
+    {
+        module.dir .. "3rdparty/libsquish/*.cpp",
+        module.dir .. "3rdparty/libsquish/*.h",
+        module.dir .. "3rdparty/libsquish/*.inl",
+    };
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+    module.public.includeDirs = 
+    {
+        module.dir .. "3rdparty/libsquish",
+    }
+end
+
+-- Need to be called at last
+compileModule(Module);
+
+return Module;

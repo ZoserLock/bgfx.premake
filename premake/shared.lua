@@ -1,30 +1,48 @@
-project("bgfx-vertexlayout");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+-- bgfx-vertexlayout
+local Module = defineModule("bgfx-vertexlayout","bgfx/shared","bgfx", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR);
-    objdir(BGFX_OBJ_DIR);
-
-    files(
+Module.MainFunc = function(module)
+    module.files =
     {
-        BGFX_DIR .."src/vertexlayout.cpp ",
-    });
+        module.dir .."src/vertexlayout.cpp",
+    };
 
-    includedirs(
+    module.public.includeDirs = 
     {
-        BX_INCLUDE_DIRS,
-        BGFX_INCLUDE_DIRS
-    });
+        module.dir .. "3rdparty",
+    };
 
-    defines(
+    module.links =
     {
-        BX_DEFINE_LIST,
-    });
+        {name = "bgfx" ,type = "public"}, 
+    }
 
-    filter("system:Windows");
-    buildoptions(
+end
+
+-- Need to be called at last
+compileModule(Module);
+
+-- bgfx-shader
+local Module = defineModule("bgfx-shader","bgfx/shared","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+
+Module.MainFunc = function(module)
+    module.files =
     {
-        "/Zc:__cplusplus" -- makes __cplusplus report the correct value
-    });
+        module.dir .."src/shader.cpp ",
+    };
+
+    module.public.includeDirs = 
+    {
+        module.dir .. "3rdparty",
+    };
+
+    module.links =
+    {
+        {name = "bgfx" ,type = "public"},
+    };
+
+
+end
+
+-- Need to be called at last
+compileModule(Module);

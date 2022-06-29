@@ -1,33 +1,19 @@
-project("etc1");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+local Module = defineModule("etc1","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
-
-    files(
+Module.MainFunc = function(module)
+    module.files = 
     {
-        BIMG_DIR .. "3rdparty/etc1/*.cpp",
-        BIMG_DIR .. "3rdparty/etc1/*.h"
-    });
+        module.dir .. "3rdparty/etc1/*.cpp",
+        module.dir .. "3rdparty/etc1/*.h"
+    };
 
-    ETC1_INCLUDE_DIRS = 
+    module.public.includeDirs = 
     {
-        BIMG_DIR.."3rdparty",
+        module.dir .. "3rdparty",
     }
+end
 
-    includedirs(
-    {
-        ETC1_INCLUDE_DIRS
-    });
-    
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+-- Need to be called at last
+compileModule(Module);
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+return Module;

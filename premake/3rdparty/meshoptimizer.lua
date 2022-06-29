@@ -1,23 +1,15 @@
-project("meshoptimizer");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+local Module = defineModule("meshoptimizer","bgfx/3rdparty","bgfx", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
+Module.MainFunc = function(module)
 
-    files(
+    module.files = 
     {
-        BGFX_DIR .."3rdparty/meshoptimizer/src/*.cpp",
-        BGFX_DIR .."3rdparty/meshoptimizer/src/*.h",
-    });
+        module.dir .."3rdparty/meshoptimizer/src/*.cpp",
+        module.dir .."3rdparty/meshoptimizer/src/*.h",
+    };
+end
 
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+-- Need to be called at last
+compileModule(Module);
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+return Module;

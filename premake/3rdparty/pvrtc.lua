@@ -1,33 +1,20 @@
-project("pvrtc");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+local Module = defineModule("pvrtc","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
-
-    files(
-    {
-        BIMG_DIR .."3rdparty/pvrtc/*.cpp ",
-        BIMG_DIR .."3rdparty/pvrtc/*.h",
-    });
-
-    PVRTC_INCLUDE_DIRS = 
-    {
-        BIMG_DIR.."3rdparty/pvrtc",
-    }
-
-    includedirs(
-    {
-        PVRTC_INCLUDE_DIRS
-    });
+Module.MainFunc = function(module)
     
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+    module.files = 
+    {
+        module.dir .. "3rdparty/pvrtc/*.cpp",
+        module.dir .. "3rdparty/pvrtc/*.h",
+    };
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+    module.public.includeDirs = 
+    {
+        module.dir .. "3rdparty/pvrtc",
+    }
+end
+
+-- Need to be called at last
+compileModule(Module);
+
+return Module;

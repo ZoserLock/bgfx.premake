@@ -1,51 +1,26 @@
-project("etc2");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+-- Create Module
+local Module = defineModule("etc2","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
-
-    files(
+Module.MainFunc = function(module)
+    module.files =
     {
-        BIMG_DIR .. "3rdparty/etc2/*.cpp",
-        BIMG_DIR .. "3rdparty/etc2/*.h"
-    });
+        module.dir .. "3rdparty/etc2/*.cpp",
+        module.dir .. "3rdparty/etc2/*.h"
+    };
 
-    ETC2_INCLUDE_DIRS = 
+    module.public.includeDirs = 
     {
-        BIMG_DIR.."3rdparty",
+        module.dir .. "3rdparty",
     }
 
-    includedirs(
+    module.links =
     {
-        ETC2_INCLUDE_DIRS,
-        BX_INCLUDE_DIRS
-    });
+        {name = "bx" ,type = "public"},
+    }
 
-    links(
-    { 
-        "bx",
-    });
+end
 
-    defines(
-    {
-        BX_DEFINE_LIST
-    })
+-- Need to be called at last
+compileModule(Module);
 
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
-
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
-
-    -- WINDOWS ONLY CONFIGURATION
-    filter("system:Windows");
-        buildoptions(
-        {
-            "/Zc:__cplusplus" -- makes __cplusplus report the correct value
-        });
+return Module;

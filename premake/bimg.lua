@@ -1,83 +1,52 @@
-group("bgfx/3rdparty");
-    include("premake/3rdparty/astc-codec.lua");
-    include("premake/3rdparty/astc.lua");
-    include("premake/3rdparty/edtaa3.lua");
-    include("premake/3rdparty/etc1.lua");
-    include("premake/3rdparty/etc2.lua");
-    include("premake/3rdparty/iqa.lua");
-    include("premake/3rdparty/libsquish.lua");
-    include("premake/3rdparty/lodepng.lua");
-    include("premake/3rdparty/nvtt.lua");
-    include("premake/3rdparty/pvrtc.lua");
-    include("premake/3rdparty/tinyexr.lua");
-group("");
+include("premake/3rdparty/astc-codec.lua");
+include("premake/3rdparty/astc.lua");
+include("premake/3rdparty/edtaa3.lua");
+include("premake/3rdparty/etc1.lua");
+include("premake/3rdparty/etc2.lua");
+include("premake/3rdparty/iqa.lua");
+include("premake/3rdparty/libsquish.lua");
+include("premake/3rdparty/lodepng.lua");
+include("premake/3rdparty/nvtt.lua");
+include("premake/3rdparty/pvrtc.lua");
+include("premake/3rdparty/tinyexr.lua");
 
-group("bgfx");
+-- Create Module with default options
+local Module =  defineModule("bimg","bgfx","bimg", VALUES.APP_TYPE_STATIC_LIB,
+{
+    BX_AMALGAMATED = 0
+});
 
-project("bimg");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
-
-    targetdir(BGFX_BIN_DIR);
-    objdir(BGFX_OBJ_DIR);
-
-    files(
+-- Setup module
+Module.MainFunc = function(module)
+    module.files =
     {
-        BIMG_DIR .. "src/**.cpp"
-    });
+        module.dir .. "src/**.cpp"
+    };
 
-    BIMG_INCLUDE_DIRS = 
+    module.public.includeDirs = 
     {
-        BIMG_DIR.."include",
+        module.dir .. "include",
+    };
+
+    module.links = 
+    {
+        {name = "bx"         ,type = "public"},
+        {name = "astc-codec" ,type = "public"},
+        {name = "astc"       ,type = "private"},
+        {name = "edtaa3"     ,type = "private"},
+        {name = "etc1"       ,type = "private"},
+        {name = "etc2"       ,type = "private"},
+        {name = "iqa"        ,type = "private"},
+        {name = "libsquish"  ,type = "private"},
+        {name = "lodepng"    ,type = "private"},
+        {name = "nvtt"       ,type = "private"},
+        {name = "pvrtc"      ,type = "private"},
+        {name = "tinyexr"    ,type = "interface"},
+
     }
+end
 
-    includedirs(
-    {
-        BX_INCLUDE_DIRS,
-        BIMG_INCLUDE_DIRS,
-        ASTC_CODEC_INCLUDE_DIRS,
-        IQA_INCLUDE_DIRS,
-        TINYEXR_INCLUDE_DIRS,
-    });
-  
-    defines(
-    {
-        BX_DEFINE_LIST,
-    })
+-- Need to be called at last
+compileModule(Module);
 
-    links(
-    { 
-        "bx",
-        "astc-codec",
-        "astc",
-        "edtaa3",
-        "etc1",
-        "etc2",
-        "iqa",
-        "libsquish",
-        "lodepng",
-        "nvtt",
-        "pvrtc",
-        "tinyexr"
-    });
-
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
-
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
-        
-    -- ONLY WINDOWS CONFIGURATION
-    filter("system:Windows");
-        buildoptions(
-        {
-            "/Zc:__cplusplus" -- makes __cplusplus report the correct value
-        });
-
-
-   
+return Module;

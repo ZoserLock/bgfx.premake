@@ -1,60 +1,34 @@
-project("nvtt");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+local Module = defineModule("nvtt","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
+Module.MainFunc = function(module)
 
-    files(
+    module.files = 
     {
-        BIMG_DIR .."3rdparty/nvtt/bc6h/*.cpp",
-        BIMG_DIR .."3rdparty/nvtt/bc6h/*.h",
-        BIMG_DIR .."3rdparty/nvtt/bc7/*.cpp",
-        BIMG_DIR .."3rdparty/nvtt/bc7/*.h",
-        BIMG_DIR .."3rdparty/nvtt/nvcore/*.h",
-        BIMG_DIR .."3rdparty/nvtt/nvcore/*.inl",
-        BIMG_DIR .."3rdparty/nvtt/nvmath/*.cpp",
-        BIMG_DIR .."3rdparty/nvtt/nvmath/*.h",
-        BIMG_DIR .."3rdparty/nvtt/*.cpp",
-        BIMG_DIR .."3rdparty/nvtt/*.h", 
-    });
+        module.dir .."3rdparty/nvtt/bc6h/*.cpp",
+        module.dir .."3rdparty/nvtt/bc6h/*.h",
+        module.dir .."3rdparty/nvtt/bc7/*.cpp",
+        module.dir .."3rdparty/nvtt/bc7/*.h",
+        module.dir .."3rdparty/nvtt/nvcore/*.h",
+        module.dir .."3rdparty/nvtt/nvcore/*.inl",
+        module.dir .."3rdparty/nvtt/nvmath/*.cpp",
+        module.dir .."3rdparty/nvtt/nvmath/*.h",
+        module.dir .."3rdparty/nvtt/*.cpp",
+        module.dir .."3rdparty/nvtt/*.h", 
+    };
 
-    NVTT_INCLUDE_DIRS = 
+    module.public.includeDirs = 
     {
-        BIMG_DIR.."3rdparty/nvtt",
+        module.dir .. "3rdparty/nvtt",
     }
 
-    includedirs(
+    module.links =
     {
-        BX_INCLUDE_DIRS,
-        NVTT_INCLUDE_DIRS
-    });
+        {name = "bx" ,type = "public"},
+    }
+end
 
-    links(
-    { 
-        "bx",
-    });
-    
-    defines(
-    {
-        BX_DEFINE_LIST
-    })
-    
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+-- Need to be called at last
+compileModule(Module);
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
-
-    -- WINDOWS ONLY CONFIGURATION
-    filter("system:Windows");
-        buildoptions(
-        {
-            "/Zc:__cplusplus" -- makes __cplusplus report the correct value
-        });
+return Module;
     

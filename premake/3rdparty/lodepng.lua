@@ -1,33 +1,20 @@
-project("lodepng");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+local Module = defineModule("lodepng","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
+Module.MainFunc = function(module)
 
-    files(
+    module.files = 
     {
-        BIMG_DIR .. "3rdparty/lodepng/*.cpp",
-        BIMG_DIR .. "3rdparty/lodepng/*.h",
-    });
+        module.dir .. "3rdparty/lodepng/*.cpp",
+        module.dir .. "3rdparty/lodepng/*.h",
+    };
 
-    LODEPNG_INCLUDE_DIRS = 
+    module.public.includeDirs = 
     {
-        BIMG_DIR.."lodepng",
+        module.dir .. "3rdparty/",
     }
+end
 
-    includedirs(
-    {
-        LODEPNG_INCLUDE_DIRS
-    });
-    
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+-- Need to be called at last
+compileModule(Module);
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+return Module;

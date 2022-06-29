@@ -1,47 +1,28 @@
-project("geometryc");
-    kind("ConsoleApp");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+-- Create Module with default options
+local Module = defineModule("geometryc","bgfx/tools","bgfx", VALUES.APP_TYPE_CONSOLE_APP);
 
-    targetdir(BGFX_BIN_DIR .. "tools/");
-    objdir(BGFX_OBJ_DIR    .. "tools/");
+-- Setup module
+Module.MainFunc = function(module)
 
-    files(
+    module.files =
     {
-        BGFX_DIR .."tools/geometryc/geometryc.cpp",
-    });
+        module.dir .."tools/geometryc/geometryc.cpp",
+    };
 
-    defines(
+    module.private.defines =
     {
-        BX_DEFINE_LIST,
         "_CRT_SECURE_NO_WARNINGS"
-    });
+    };
 
-    includedirs(
+    module.links =
     {
-        BX_INCLUDE_DIRS,
-        BGFX_INCLUDE_DIRS
-    });
+        {name = "bx"                ,type = "public"},
+        {name = "bgfx-vertexlayout" ,type = "public"},
+        {name = "meshoptimizer"     ,type = "public"},
+    };
+end
 
-    links(
-    {
-        "bx",
-        "bgfx-vertexlayout",
-        "meshoptimizer",
-    });
-    
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+-- Need to be called at last
+compileModule(Module);
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
-
-    filter("system:Windows");
-        buildoptions(
-        {
-            "/Zc:__cplusplus" -- makes __cplusplus report the correct value
-        });
+return Module;

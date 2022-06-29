@@ -1,33 +1,19 @@
-project("iqa");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
+local Module = defineModule("iqa","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
 
-    targetdir(BGFX_BIN_DIR .. "3rdparty/");
-    objdir(BGFX_OBJ_DIR    .. "3rdparty/");
-
-    files(
-    {
-        BIMG_DIR .. "3rdparty/iqa/source/*.c",
-        BIMG_DIR .. "3rdparty/iqa/include/*.h"
-    });
-
-    IQA_INCLUDE_DIRS = 
-    {
-        BIMG_DIR.."3rdparty/iqa/include",
-    }
-
-    includedirs(
-    {
-        IQA_INCLUDE_DIRS
-    });
-
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
-
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+    Module.MainFunc = function(module)
+        module.files = 
+        {
+            module.dir .. "3rdparty/iqa/source/*.c",
+            module.dir .. "3rdparty/iqa/include/*.h"
+        };
+    
+        module.public.includeDirs = 
+        {
+            module.dir .. "3rdparty/iqa/include",
+        }
+    end
+    
+    -- Need to be called at last
+    compileModule(Module);
+    
+    return Module;

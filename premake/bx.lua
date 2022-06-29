@@ -1,87 +1,70 @@
-group("bgfx");
-project("bx");
-    kind("StaticLib");
-    language("C++");
-    cppdialect("c++17");
-    staticruntime("On");
 
-    targetdir(BGFX_BIN_DIR);
-    objdir(BGFX_OBJ_DIR);
 
+-- Create Module with default options
+local Module = defineModule("bx","bgfx","bx", VALUES.APP_TYPE_STATIC_LIB,
+{
+    BX_AMALGAMATED = 0
+});
+
+-- Setup module
+Module.MainFunc = function(module)
     -- If Amalgated is used just include the amalgamated file. Remove the amalgamated file otherwise.
-    if OPTION_BX_AMALGAMATED == 0 then
-        files( 
+    if module.options.BX_AMALGAMATED == 0 then
+        module.files = 
         {  
-            BX_DIR .. "src/**.cpp", 
-        });
-        excludes(
+            module.dir .. "src/**.cpp", 
+        };
+        module.excludes =
         {
-            BX_DIR .. "src/amalgamated.cpp"
-        });
+            module.dir .. "src/amalgamated.cpp"
+        };
     else
-        files(
+        module.files =
         {
-            BX_DIR .. "src/amalgamated.cpp"
-        });
+            module.dir .. "src/amalgamated.cpp"
+        };
     end
 
-    BX_INCLUDE_DIRS = 
+    module.public.includeDirs = 
     {
-        BX_DIR .. "include",
-        BX_DIR .. "3rdparty",
+        module.dir .. "include",
+        module.dir .. "3rdparty",
     };
 
-    if SYSTEM == "windows" then
-
-        local win32Dirs = 
-        {
-            BX_DIR .. "include/compat/msvc", 
-        }
-
-        tableConcat(BX_INCLUDE_DIRS, win32Dirs);
-    end
-
-    includedirs(
+    module.public.defines = 
     {
-        BX_INCLUDE_DIRS
-    });
-    
-    defines(
-    {
-        BX_DEFINE_LIST,
+        "BX_CONFIG_DEBUG=0"
+    }
 
+    module.private.defines =
+    {
         "__STDC_LIMIT_MACROS",
         "__STDC_FORMAT_MACROS",
         "__STDC_CONSTANT_MACROS",
-    });
-    
-    -- BUILD CONFIGURATIONS
-    filter("configurations:Debug");
-        runtime("Debug");
-        symbols("On");
+    }
 
-    filter("configurations:Release");
-        runtime("Release");
-        optimize("On");
+    if _TARGET_OS == "windows" then
+        local win32Dirs = 
+        {
+            module.dir .. "include/compat/msvc", 
+        }
+        tableConcat(module.public.includeDirs, win32Dirs);
 
-    -- ONLY WINDOWS CONFIGURATION
-    filter("system:Windows");
-        buildoptions(
+        local win32BuildOptions = 
         {
             "/Zc:__cplusplus" -- makes __cplusplus report the correct value
-        });
+        }
+        tableConcat(module.public.buildOptions, win32BuildOptions);
+    end
+
+    filter("system:Windows");
         links(
         { 
             "psapi"
         });
+end
 
- -- ONLY OSX CONFIGURATION
-    filter("system:Mac");
-        systemversion("latest");
+-- Need to be called at last
+compileModule(Module);
 
--- ONLY LINUX CONFIGURATION
-    filter("system:Linux");
-        systemversion("latest");
-
-
-   
+return Module;
