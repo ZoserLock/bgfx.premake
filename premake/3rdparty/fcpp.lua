@@ -1,5 +1,5 @@
 -- Create Module
-local Module = defineModule("fccp","bgfx/3rdparty","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("fcpp","bgfx/3rdparty","bgfx", VALUES.APP_TYPE_STATIC_LIB);
 
 Module.MainFunc = function(module)
     module.files = 

@@ -41,7 +41,7 @@ Module.MainFunc = function(module)
         {name = "lodepng"    ,type = "private"},
         {name = "nvtt"       ,type = "private"},
         {name = "pvrtc"      ,type = "private"},
-        {name = "tinyexr"    ,type = "interface"},
+        {name = "tinyexr"    ,type = "public"},
 
     }
 end

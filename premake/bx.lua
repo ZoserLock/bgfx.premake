@@ -33,7 +33,7 @@ Module.MainFunc = function(module)
 
     module.public.defines = 
     {
-        "BX_CONFIG_DEBUG=0"
+        "BX_CONFIG_DEBUG=0" -- TODO: Add to options (?)
     }
 
     module.private.defines =

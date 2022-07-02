@@ -148,6 +148,10 @@ function compileModule(module)
         if linkModule ~= nil then
             linkToModule(module, linkModule, value.type);
         else
+            print("Loaded Modules at this point");
+            for key, value in pairs(MODULES) do
+                print("["..value.group.."] -> " .. key)
+            end
             premake.error("Unable to link to ".. value.name .." module from ".. module.name);
         end
     end
@@ -236,8 +240,10 @@ include("premake/bx.lua");
 include("premake/bimg.lua");
 include("premake/bgfx.lua");
 
+
 if GLOBAL_OPTIONS.BGFX_BUILD_TOOLS == 1 or  GLOBAL_OPTIONS.BGFX_BUILD_EXAMPLES == 1 then
     include("premake/3rdparty/meshoptimizer.lua");
+    include("premake/3rdparty/dear-imgui.lua");
     include("premake/shared.lua");
 end 
 
