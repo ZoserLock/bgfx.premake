@@ -9,7 +9,9 @@ GLOBAL_OPTIONS =
 {
     BX_AMALGAMATED       = 0, -- if BX should b compiled amalgamated
     BGFX_AMALGAMATED     = 0, -- if BGFX should be compiled amalgamated
-    BGFX_BUILD_EXAMPLES  = 0,
+    BGFX_WITH_GLFW       = 1,
+    BGFX_WITH_SDL        = 0,
+    BGFX_BUILD_EXAMPLES  = 1,
     BGFX_BUILD_TOOLS     = 1,
     BGFX_CONFIG_MULTITHREADED = 1,
 };
@@ -207,6 +209,7 @@ function linkToModule(module, targetModule, access)
         {
             targetModule.public.buildOptions 
         });
+
         if access == "private" then
             tableConcat(module.private.includeDirs   , targetModule.public.includeDirs);
             tableConcat(module.private.defines       , targetModule.public.defines);
@@ -247,12 +250,12 @@ if GLOBAL_OPTIONS.BGFX_BUILD_TOOLS == 1 or  GLOBAL_OPTIONS.BGFX_BUILD_EXAMPLES =
     include("premake/shared.lua");
 end 
 
-if GLOBAL_OPTIONS.BGFX_BUILD_TOOLS == 1 then
-    include("premake/tools.lua");
-end
-
 if GLOBAL_OPTIONS.BGFX_BUILD_EXAMPLES == 1 then
     include("premake/examples.lua");
+end
+
+if GLOBAL_OPTIONS.BGFX_BUILD_TOOLS == 1 then
+    include("premake/tools.lua");
 end
 
 -- DEBUG

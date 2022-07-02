@@ -9,7 +9,7 @@ Module.MainFunc = function(module)
 
     module.links =
     {
-        --{name = "example-common" ,type = "public"},
+        {name = "example-common" ,type = "public"},
     };
 end
 
