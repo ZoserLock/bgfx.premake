@@ -1,5 +1,5 @@
 -- bgfx-vertexlayout
-local Module = defineModule("bgfx-vertexlayout","bgfx/shared","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("bgfx-vertexlayout","bgfx/shared","bgfx", "StaticLib");
 
 Module.MainFunc = function(module)
     module.files =
@@ -23,7 +23,7 @@ end
 compileModule(Module);
 
 -- bgfx-shader
-local Module = defineModule("bgfx-shader","bgfx/shared","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("bgfx-shader","bgfx/shared","bgfx", "StaticLib");
 
 Module.MainFunc = function(module)
     module.files =

@@ -11,7 +11,7 @@ include("premake/3rdparty/pvrtc.lua");
 include("premake/3rdparty/tinyexr.lua");
 
 -- Create Module with default options
-local Module =  defineModule("bimg","bgfx","bimg", VALUES.APP_TYPE_STATIC_LIB,
+local Module =  defineModule("bimg","bgfx","bimg", "StaticLib",
 {
     BX_AMALGAMATED = 0
 });

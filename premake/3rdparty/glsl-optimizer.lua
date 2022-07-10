@@ -1,6 +1,6 @@
 -- Create Module
 
-local Module = defineModule("glcpp","bgfx/3rdparty","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("glcpp","bgfx/3rdparty","bgfx", "StaticLib");
 
 Module.MainFunc = function(module)
 
@@ -30,7 +30,7 @@ end
 -- Need to be called at last
 compileModule(Module);
 
-local Module = defineModule("mesa","bgfx/3rdparty","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("mesa","bgfx/3rdparty","bgfx", "StaticLib");
 
 Module.MainFunc = function(module)
 
@@ -60,7 +60,7 @@ end
 -- Need to be called at last
 compileModule(Module);
 
-local Module = defineModule("glsl-optimizer","bgfx/3rdparty","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("glsl-optimizer","bgfx/3rdparty","bgfx", "StaticLib");
 
 Module.MainFunc = function(module)
   

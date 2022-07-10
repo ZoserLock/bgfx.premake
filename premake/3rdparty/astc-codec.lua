@@ -1,5 +1,5 @@
 -- Create Module
-local Module = defineModule("astc-codec","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("astc-codec","bgfx/3rdparty","bimg", "StaticLib");
 
 Module.MainFunc = function(module)
     module.files = 

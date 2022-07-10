@@ -1,4 +1,4 @@
-local Module = defineModule("libsquish","bgfx/3rdparty","bimg", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("libsquish","bgfx/3rdparty","bimg", "StaticLib");
 
 Module.MainFunc = function(module)
     

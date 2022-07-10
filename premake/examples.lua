@@ -2,7 +2,7 @@
 --cpp-bgfx\bgfx\examples\00-helloworld
 
 function buildExample(exampleName)
-    local Module = defineModule("example-"..exampleName,"bgfx/examples","bgfx", VALUES.APP_TYPE_CONSOLE_APP);
+    local Module = defineModule("example-"..exampleName,"bgfx/examples","bgfx", "ConsoleApp");
 
 
 
@@ -46,7 +46,7 @@ end
 
 -- Build example-common
 -- Create Module
-local Module = defineModule("example-common","bgfx/examples","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("example-common","bgfx/examples","bgfx", "StaticLib");
 
 Module.MainFunc = function(module)
     module.files = 

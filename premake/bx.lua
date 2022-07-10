@@ -1,7 +1,7 @@
 
 
 -- Create Module with default options
-local Module = defineModule("bx","bgfx","bx", VALUES.APP_TYPE_STATIC_LIB,
+local Module = defineModule("bx","bgfx","bx", "StaticLib",
 {
     BX_AMALGAMATED = 0
 });

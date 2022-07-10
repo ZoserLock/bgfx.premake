@@ -1,5 +1,5 @@
 -- Create Module with default options
-local Module = defineModule("bgfx","bgfx","bgfx", VALUES.APP_TYPE_STATIC_LIB,
+local Module = defineModule("bgfx","bgfx","bgfx", "StaticLib",
 {
     BGFX_AMALGAMATED = 0,
     BGFX_CONFIG_MULTITHREADED = 1

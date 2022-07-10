@@ -1,5 +1,5 @@
 -- Create Module
-local Module = defineModule("texturec","bgfx/tools","bimg", VALUES.APP_TYPE_CONSOLE_APP);
+local Module = defineModule("texturec","bgfx/tools","bimg", "ConsoleApp");
 
 Module.MainFunc = function(module)
     module.files = 

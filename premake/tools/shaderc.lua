@@ -10,7 +10,7 @@ include("premake/3rdparty/webgpu.lua");
 
 
 -- Create Module
-local Module = defineModule("shaderc","bgfx/tools","bgfx", VALUES.APP_TYPE_CONSOLE_APP);
+local Module = defineModule("shaderc","bgfx/tools","bgfx", "ConsoleApp");
 
 Module.MainFunc = function(module)
     module.files = 

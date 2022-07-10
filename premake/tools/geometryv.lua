@@ -1,5 +1,5 @@
 -- Create Module with default options
-local Module = defineModule("geometryv","bgfx/tools","bgfx", VALUES.APP_TYPE_CONSOLE_APP);
+local Module = defineModule("geometryv","bgfx/tools","bgfx", "ConsoleApp");
 
 -- Setup module
 Module.MainFunc = function(module)

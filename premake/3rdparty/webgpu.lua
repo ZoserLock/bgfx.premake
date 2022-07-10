@@ -1,5 +1,5 @@
 -- Create Module
-local Module = defineModule("webgpu","bgfx/3rdparty","bgfx", VALUES.APP_TYPE_STATIC_LIB);
+local Module = defineModule("webgpu","bgfx/3rdparty","bgfx", "StaticLib");
 
 Module.MainFunc = function(module)
     module.files = 
