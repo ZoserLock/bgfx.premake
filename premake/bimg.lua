@@ -1,14 +1,14 @@
-include("premake/3rdparty/astc-codec.lua");
-include("premake/3rdparty/astc.lua");
-include("premake/3rdparty/edtaa3.lua");
-include("premake/3rdparty/etc1.lua");
-include("premake/3rdparty/etc2.lua");
-include("premake/3rdparty/iqa.lua");
-include("premake/3rdparty/libsquish.lua");
-include("premake/3rdparty/lodepng.lua");
-include("premake/3rdparty/nvtt.lua");
-include("premake/3rdparty/pvrtc.lua");
-include("premake/3rdparty/tinyexr.lua");
+include("3rdparty/astc-codec.lua");
+include("3rdparty/astc.lua");
+include("3rdparty/edtaa3.lua");
+include("3rdparty/etc1.lua");
+include("3rdparty/etc2.lua");
+include("3rdparty/iqa.lua");
+include("3rdparty/libsquish.lua");
+include("3rdparty/lodepng.lua");
+include("3rdparty/nvtt.lua");
+include("3rdparty/pvrtc.lua");
+include("3rdparty/tinyexr.lua");
 
 -- Create Module with default options
 local Module =  defineModule("bimg","bgfx","bimg", "StaticLib",
