@@ -131,10 +131,14 @@ function defaultHeaderFunction(module)
     local binDir = MAIN_BIN_DIR .. module.group; 
     local objDir = MAIN_OBJ_DIR .. module.group; 
 
-    if module.group == "" then
+    if module.appType == "ConsoleApp" then
         binDir = MAIN_BIN_DIR .. "Bundle"; 
         objDir = MAIN_OBJ_DIR .. "Bundle"; 
+    else
+        binDir = MAIN_BIN_DIR .. "temp-libs/" ..module.group; 
+        objDir = MAIN_OBJ_DIR .. "temp-libs/" ..module.group; 
     end
+    
 
     targetdir(binDir);
     debugdir(binDir);
