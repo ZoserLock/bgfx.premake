@@ -1,5 +1,5 @@
 -- Add Module functions
-include("scripts/modules.lua");
+include("scripts/build/modules.lua");
 
 -- Add BFGX options
 include("options.lua");
