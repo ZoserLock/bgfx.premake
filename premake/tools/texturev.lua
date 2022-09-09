@@ -1,6 +1,8 @@
 -- Create Module
 local Module = defineModule("texturev","bgfx/tools","bgfx", "ConsoleApp");
 
+Module.appTarget = "tools";
+
 Module.MainFunc = function(module)
     module.files = 
     {

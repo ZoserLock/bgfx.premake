@@ -1,9 +1,9 @@
--- Create Module with default options
+-- Create Module
 local Module = defineModule("geometryc","bgfx/tools","bgfx", "ConsoleApp");
 
--- Setup module
-Module.MainFunc = function(module)
+Module.appTarget = "tools";
 
+Module.MainFunc = function(module)
     module.files =
     {
         module.dir .."tools/geometryc/geometryc.cpp",

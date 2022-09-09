@@ -132,8 +132,8 @@ function defaultHeaderFunction(module)
     local objDir = MAIN_OBJ_DIR .. module.group; 
 
     if module.appType == "ConsoleApp" then
-        binDir = MAIN_BIN_DIR .. "Bundle"; 
-        objDir = MAIN_OBJ_DIR .. "Bundle"; 
+        binDir = MAIN_BIN_DIR .. module.appTarget; 
+        objDir = MAIN_OBJ_DIR .. module.appTarget; 
     else
         binDir = MAIN_BIN_DIR .. "temp-libs/" ..module.group; 
         objDir = MAIN_OBJ_DIR .. "temp-libs/" ..module.group; 
@@ -238,6 +238,7 @@ function defineModule(name, localGroup, dir, appType, defaultOptions)
         dir = baseDir,
         language ="C++",
         appType = appType,
+        appTarget = "bundle",
         options = options,
         links = {},
         files = {},
@@ -312,19 +313,7 @@ function compileModule(module)
             if (type(value) == "table") then
                 premake.error(" Unable to link to ".. value.name .." module from ".. module.name);
             else
-                if string.match(value, ".lib") then
-                    links({value});
-                else
-                    print("Loaded Modules at this point");
-                    for key, value in pairs(MODULES) do
-                        print("["..value.group.."] -> " .. key)
-                    end
-                    if value.name then
-                        premake.error(" Unable to link to ".. value.name .." module from ".. module.name);
-                    else
-                        premake.error(" Unable to link to ".. value);
-                    end
-                end
+                links({value});
             end
         end
     end

@@ -1,18 +1,21 @@
 
 
 
-include("premake/3rdparty/fcpp.lua");
-include("premake/3rdparty/glsl-optimizer.lua");
-include("premake/3rdparty/glslang.lua");
-include("premake/3rdparty/spirv-cross.lua");
-include("premake/3rdparty/spirv-tools.lua");
-include("premake/3rdparty/webgpu.lua");
+include("../3rdparty/fcpp.lua");
+include("../3rdparty/glsl-optimizer.lua");
+include("../3rdparty/glslang.lua");
+include("../3rdparty/spirv-cross.lua");
+include("../3rdparty/spirv-tools.lua");
+include("../3rdparty/webgpu.lua");
 
 
 -- Create Module
 local Module = defineModule("shaderc","bgfx/tools","bgfx", "ConsoleApp");
 
+Module.appTarget = "tools";
+
 Module.MainFunc = function(module)
+
     module.files = 
     {
         module.dir .."tools/shaderc/shaderc.cpp",

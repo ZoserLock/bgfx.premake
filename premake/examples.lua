@@ -77,5 +77,5 @@ end
 compileModule(Module);
 
 -- Build other examples
-buildExample("00-helloworld");
-buildExample("01-cubes");
+-- buildExample("00-helloworld");
+-- buildExample("01-cubes");
